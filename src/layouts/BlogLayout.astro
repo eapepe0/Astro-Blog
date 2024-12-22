@@ -1,0 +1,37 @@
+---
+import { ClientRouter} from 'astro:transitions';
+import '../styles/blog.css';
+
+
+
+interface Props {
+	title? : string;
+	frontmatter? : any;
+}
+
+const { title , ...rest } = Astro.props;
+ // en el spread de ...rest recibimos el resto de las props
+const frontmatter = rest.frontmatter as Props;  // sacamos el frontmatter de las props
+ // en frontmatter tenemos el title , date , description, author , image , los tags , etc
+
+---
+
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{frontmatter.title}</title>
+        <ClientRouter/>
+	</head>
+	<body class="bg-gray-900">
+        <a href="/">Regresar</a>
+		<main class="mb-10 max-w-5xl m-auto px-2 py-2">
+			<slot />
+		</main>	
+	</body>
+</html>
+
