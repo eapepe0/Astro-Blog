@@ -3,6 +3,9 @@ import BlogPost from '../components/BlogPost.astro';
 import { siteConfig } from '../config/site-config';
 import Layout from '../layouts/Layout.astro';
 
+
+const posts  = Object.values(import.meta.glob('./posts-old/*.{md,mdx}', { eager: true }));
+
 ---
 
 <Layout title='Cristian Blog'>
@@ -12,7 +15,12 @@ import Layout from '../layouts/Layout.astro';
         <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">{siteConfig.title}</h1>
 
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-
+			{
+				posts.map(
+					(post ) =>
+			 		<BlogPost frontmatter = {post.frontmatter} url = {post.url} />
+				)
+			}
         </div>
     </div>
 </section>
