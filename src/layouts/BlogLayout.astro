@@ -9,10 +9,7 @@ interface Props {
 	frontmatter? : any;
 }
 
-const { title , ...rest } = Astro.props;
- // en el spread de ...rest recibimos el resto de las props
-const frontmatter = rest.frontmatter as Props;  // sacamos el frontmatter de las props
- // en frontmatter tenemos el title , date , description, author , image , los tags , etc
+const { title  } = Astro.props;
 
 ---
 
@@ -24,7 +21,7 @@ const frontmatter = rest.frontmatter as Props;  // sacamos el frontmatter de las
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{frontmatter.title}</title>
+		<title>{title}</title>
         <ClientRouter/>
 	</head>
 	<body class="bg-gray-900">
