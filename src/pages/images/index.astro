@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+
+import post05 from "@images/post-05.png";
+---
+
+<Layout title="Imagenes">
+  <h1 class="text-5xl text-white mb-3">Imagenes</h1>
+  <div class="gap-3">
+    <img
+      loading="eager"
+      src="/assets/images/post-05.png"
+      alt="Imagen 05 sin optimizar"
+      width="250"
+      height="250"
+    />
+
+    <Image
+      src="/assets/images/post-05.png"
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+    />
+
+    <Image
+        src={post05}
+        alt="Imagen 05 optimizada"
+        width="250"
+        height="250"
+  />
+    
+    <div
+      style={{
+        height: "3000px",
+      }}
+    >
+    </div>
+    <img
+      loading="lazy"
+      src="/assets/images/post-05.png"
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+    />
+  </div>
+</Layout>
