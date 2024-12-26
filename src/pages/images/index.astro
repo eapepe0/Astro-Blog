@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, Picture } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 
 import post05 from "@images/post-05.png";
@@ -8,34 +8,151 @@ import post05 from "@images/post-05.png";
 <Layout title="Imagenes">
   <h1 class="text-5xl text-white mb-3">Imagenes</h1>
   <div class="gap-3">
+    <h3>
+      Imagen <code>img</code> sin optimizar desde la carpeta public (684 kb)
+    </h3>
     <img
       loading="eager"
       src="/assets/images/post-05.png"
-      alt="Imagen 05 sin optimizar"
+      alt="Imagen 05 sin optimizar 684kb desde public"
       width="250"
       height="250"
     />
-
+    <h3>
+      Componente <code>Image</code> sin optimizar desde la carpeta public (684 kb)
+    </h3>
     <Image
       src="/assets/images/post-05.png"
       alt="Imagen 05 optimizada"
       width="250"
       height="250"
+      alt="Imagen 05 optimizada 684kb desde public"
     />
 
+    <h3>
+      Componente <code>Image</code> desde la carpeta <code>src/images</code> optimizada
+      (28.7 kb)
+    </h3>
     <Image
-        src={post05}
-        alt="Imagen 05 optimizada"
-        width="250"
-        height="250"
-  />
-    
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 28.7kb"
+    />
+
+    <h3>
+      Componente <code>Image</code> optimizada de 500x500px, pero dandole medidas
+      desde la etiqueta <code>style</code> 250x250px (98.7 kb)
+    </h3>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="500"
+      height="500"
+      alt="Imagen 05 optimizada 98.7kb"
+      style="width: 250px; height: 250px;"
+    />
+
+    <h3>Quality Low desde el Componente Image (15.7 kb) 250x250px</h3>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 15.7kb"
+      quality="low"
+    />
+    <h3>Quality Mid desde el Componente Image (20.8 kb) 250x250px</h3>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 20.8kb"
+      quality="mid"
+    />
+
+    <h3>Quality High desde el Componente Image (28.5 kb) 250x250px</h3>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 28.5kb"
+      quality="high"
+    />
+    <h3>Quality Max desde el Componente Image (57.1 kb) 250x250px</h3>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 57.1kb"
+      quality="max"
+    />
+
+    <h3>Otros formatos</h3>
+
+    <h4>jpg (30.3 kb)</h4>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 15.7kb"
+      format="jpg"
+    />
+    <h4>avif (23.1 kb)</h4>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 15.7kb"
+      format="avif"
+    />
+    <h4>svg</h4>
+    <p>No se puede pasar de PNG o JPG a SVG</p>
+    <h4>png</h4>
+    <Image
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 15.7kb"
+      format="png"
+    />
+
+    <h3><code>Picture</code> , usando formats , si el navegador no soporta webp , pasa a avif , sino a png , sino a jpg sino a jpeg</h3>
+    <Picture
+      src={post05}
+      alt="Imagen 05 optimizada"
+      width="250"
+      height="250"
+      alt="Imagen 05 optimizada 15.7kb"
+      formats={["webp" ,  "avif", "png", "jpg" , "jpeg"]}
+    />
+
+    <h4>Widths y Sizes</h4>
+    <Picture
+      src={post05}
+      alt="Imagen 05 optimizada"
+      widths={[240,540 , 720 , post05.width]}
+      sizes={`(max-width: 360px) 240px, (max-width: 640px) 540px, (max-width: 768px) 720px, ${post05.width}px`}
+      alt="Imagen 05 optimizada 15.7kb"
+      formats={["webp" ,  "avif", "png", "jpg" , "jpeg"]}
+    />
+    <h3>Divisor para ver el <code>loading="lazy"</code></h3>
     <div
       style={{
-        height: "3000px",
+        height: "1000px",
       }}
     >
     </div>
+    <h3>
+      Imagen <code>img</code> que se carga de forma lazy sin optimizar (680 kb)
+    </h3>
     <img
       loading="lazy"
       src="/assets/images/post-05.png"
@@ -45,3 +162,17 @@ import post05 from "@images/post-05.png";
     />
   </div>
 </Layout>
+
+<style>
+  h3 {
+    @apply text-white mt-10 mb-2;
+  }
+
+  h4 {
+    @apply text-white mt-5 mb-2 font-bold;
+  }
+
+  p{
+    @apply text-white;
+  }
+</style>
