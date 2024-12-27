@@ -1,34 +1,49 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+
+
 
 // heredo las propiedades de la coleccion de blog
 interface Props {
-    post : CollectionEntry<'blog'>;
+  post: CollectionEntry<"blog">;
 }
 
+const { post } = Astro.props;
 
-const {post} = Astro.props;
 const frontmatter = post.data;
 
-const date = new Date(frontmatter.date).toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+const date = new Date(frontmatter.date).toLocaleDateString("es-ES", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 });
-
 
 ---
 
 <div class="lg:flex">
-    <img class="object-cover w-full h-56 rounded-lg lg:w-64" src={frontmatter.image} alt=`${frontmatter.image}-photo` transition:name={frontmatter.img}>
+  <Image
+    class="object-cover w-full h-56 rounded-lg lg:w-64"
+    src={frontmatter.image}
+    alt=`${frontmatter.image}-photo`
+    transition:name={frontmatter.description}
+    quality={"low"}
+    width={500}
+    height={500}
+    loading="lazy"
+  />
 
-    <div class="flex flex-col justify-between py-6 lg:mx-6">
-        <a href={`/posts/${post.slug}`} class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
-           {frontmatter.title}
-        </a>
-        
-        <span class="text-sm text-gray-500 dark:text-gray-300">Fecha: {date}</span>
-    </div>
+  <div class="flex flex-col justify-between py-6 lg:mx-6">
+    <a
+      href={`/posts/${post.slug}`}
+      class="text-xl font-semibold text-gray-800 hover:underline dark:text-white"
+    >
+      {frontmatter.title}
+    </a>
+
+    <span class="text-sm text-gray-500 dark:text-gray-300">Fecha: {date}</span>
+  </div>
 </div>
 
 <!-- `${url}` -->
