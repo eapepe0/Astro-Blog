@@ -1,9 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
 import type { GetStaticPaths } from 'astro';
 import { Image } from "astro:assets";
+
+import {Formatter} from "../../utils/formatter";
 
  
 export const getStaticPaths = (async () => {
@@ -22,14 +24,32 @@ return blogPost.map((post) => ({
 const { post } = Astro.props;
 const frontmatter = post.data;
 
-
-console.log(frontmatter)
 const {Content , headings} = await post.render();
+
+const author = (await getEntry('author',post.data.author.id))?.data;
+
 ---
 
 <BlogLayout title={frontmatter.title} >
     <h1 class="text-xs text-gray-500 mb-0">{frontmatter.title}</h1>
-    <h4 class="text-md text-gray-400 mb-0">{frontmatter.author}</h4>
+    <div class="text-md text-gray-400 mb-0 flex flex-row mt-2">
+        <Image
+            class="object-cover rounded-full"
+            src={author?.avatar}
+            alt={`${author?.name}-photo`}
+            transition:name={author?.name}
+            quality={"high"}
+            width={48}
+            height={48}
+        />
+
+        <div class="flex flex-col ml-5">
+            <a href="#">{author?.name}</a>
+            <span class="text-xs text-gray-200">
+                {Formatter.formatDate(frontmatter.date)}
+            </span>
+        </div>
+    </div>
 
     <Image
         class="object-cover w-full h-[250px] rounded-lg lg:w-64 py-3"
