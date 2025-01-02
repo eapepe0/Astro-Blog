@@ -12,6 +12,12 @@ const blogCollection = defineCollection({
             author :  reference("author"),
             //relacion
             tags : z.array(z.string()),
+
+            // Boolean
+
+            // creamos una propiedad isDraft , para no cambiar cada archivo *.md 
+            // ponemos que por defecto sea false
+            isDraft: z.boolean().default(false), 
         })
 });
 
