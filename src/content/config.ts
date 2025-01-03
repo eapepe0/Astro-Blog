@@ -9,7 +9,7 @@ const blogCollection = defineCollection({
             description : z.string(),
             image :  image(),
             // relacionamos el autor con la coleccion authorCollection
-            author :  reference("author"),
+            author :  reference('author'),
             //relacion
             tags : z.array(z.string()),
 
@@ -28,6 +28,11 @@ const blogCollection = defineCollection({
         z.object({
             name: z.string(),
             avatar: image(),
+            twitter : z.string(),
+            linkedIn : z.string(),
+            github : z.string(),
+            bio: z.string(),
+            subtitle: z.string(),
         }),
 });
 

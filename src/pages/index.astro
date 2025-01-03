@@ -10,8 +10,6 @@ const blogPosts = await getCollection(
   (post) => post.data.isDraft === false
 );
 
-
-console.log(blogPosts);
 ---
 
 <Layout title="Cristian Blog">
@@ -24,7 +22,8 @@ console.log(blogPosts);
         {siteConfig.title}
       </h1>
 
-      <a href="/blog/1">Blog Paginado</a>
+      <a class='mr-2' href="/blog/1">Blog Paginado</a>
+      <a class='mr-2' href="/authors">Autores</a>
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
         {blogPosts.map((post) => <TypedBlogPost post={post} />)}
       </div>

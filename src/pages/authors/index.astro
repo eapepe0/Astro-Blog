@@ -1,0 +1,32 @@
+---
+import AuthorBio from "@components/AuthorBio.astro";
+import Layout from "@layouts/Layout.astro"
+import { getCollection } from "astro:content"
+import { siteConfig } from "src/config/site-config"
+
+
+
+
+const autores = await getCollection('author');
+
+---
+
+<Layout title="Listado de autores">
+    <section class="container px-6 py-10 mx-auto">
+        <a href="/">Regresar</a>
+        <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">
+            {siteConfig.title}
+        </h1>
+    </section>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {autores.map((autor)=> <AuthorBio author={autor} />)}
+    </section>
+</Layout>
+
+<style>
+    a {
+      @apply text-blue-500 hover:underline;
+    }
+  </style>
+  
